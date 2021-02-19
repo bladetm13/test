@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <a href="#" id="downloadLnk">download pdf</a>
+</body>
+
+
+<script>
+  (() => {
+    downloadLnk.onclick = e => {
+      e.preventDefault();
+
+      setTimeout(async () => {
+        const { url } = await fetch('/download').then(r => r.json());
+        const a = document.createElement("a");
+
+        a.setAttribute("download", "family-chart.pdf");
+        a.setAttribute("href", url);
+
+        document.body.appendChild(a);
+
+        a.click();
+        a.remove();
+      }, 3000);
+    }
+  })();
+</script>
+</html>
